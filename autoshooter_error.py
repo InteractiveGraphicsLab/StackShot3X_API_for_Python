@@ -1,0 +1,2 @@
+class AutoShooterError(BaseException):
+    pass
