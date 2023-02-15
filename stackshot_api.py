@@ -18,7 +18,6 @@ def float2uint(data: float):
 class StackShotAPI:
     def __init__(self):
         self.device = Ftdi()
-        self.units = RailUnits.COMM_RAIL_UNITS_METRIC
         self.backlash = False
 
     def send_command(self, axis: RailAxis, cmd: Cmd, action: Action, data: bytearray | None, lenIn: int):
@@ -106,12 +105,12 @@ class StackShotAPI:
 
         return status
 
-    def move(self, axis: RailAxis, dir: RailDir, dist: float):
+    def move(self, axis: RailAxis, dir: RailDir, dist: float, units: RailUnits):
         castedDist = float2uint(dist)
 
         data = bytearray()
         data.extend(int(dir).to_bytes(1, 'big'))
-        data.extend(int(self.units).to_bytes(1, 'big'))
+        data.extend(int(units).to_bytes(1, 'big'))
         data.extend(self.backlash.to_bytes(1, 'big'))
         data.extend(( castedDist        & 0x0FF).to_bytes(1, 'big'))
         data.extend(((castedDist >>  8) & 0x0FF).to_bytes(1, 'big'))
