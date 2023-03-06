@@ -1,7 +1,7 @@
 # StackShot3X API for Python
 
 
-## Abstruction
+## Overview
 ---
 StackShot3Xを操作するためのPython用API
 
