@@ -61,67 +61,68 @@ StackShot3Xに対する挙動を表すIntEnum
 
 
 ## APIs
-> class StackShotController
 
-> open(device=None)
+### class StackShotController
+
+#### open(device=None)
 
 USBで接続されているStackShot3Xと通信を始める．
 `device`に指定した端末と通信を始める．
 端末を指定しない(`device=None`)場合，接続されているStackShot3Xのいずれかと通信を始める．
 
-**引数**:
+引数:
 - `device(Device)`: FTDI USBデバイス(PyUSBのインスタンス)
 
-**返り値の型**: `None`
+返り値の型: `None`
 
 
-> close()
+#### close()
 
 接続しているStackShot3Xとの通信を閉じる．  
 
-**返り値の型**: `None`
+返り値の型: `None`
 
 
-> rail_status(axis)
+#### rail_status(axis)
 
 `axis`に指定した軸の状態を確認する．
 
-**引数**:
+引数:
 - `axis(RailAxis)`: 状態を取得したい軸
 
-**返り値の型**: `RailStatus`
+返り値の型: `RailStatus`
 
-**返り値**: 軸の状態
+返り値: 軸の状態
 
-> move(axis, dir, dist, units)
+#### move(axis, dir, dist, units)
 
 `axis`に指定した軸を移動させる.  
 
-**引数**:
+引数:
 - `axis`: 動かす軸(`RailAxis`)
 - `dir`: 動かす方向(`RailDir`)
 - `dist`: 動かす距離(`float`)
 - `units`: distで指定した距離の単位(`RailUnits`)
 
-**返り値の型**: `None`
+返り値の型: `None`
 
 
-> stop(axis)
+#### stop(axis)
 
 `axis`に指定した軸の移動を停止させる．  
 
-**引数**:
+引数:
 - `axis(RailAxis)`: 停止させる軸
 
-**返り値の型**: `None`
+返り値の型: `None`
 
-> shutter(num_pulses, pulse_duration, pulse_off_time)
+#### shutter(num_pulses, pulse_duration, pulse_off_time)
 
 カメラのシャッターを発火させる．  
 
-**引数**:
+引数:
 - `num_pulses(int)`: The number of pulses to generate on the shutter output.
 - `pulse_duration(float)`: The "on" time of each pulse, in seconds.
 - `pulse_off_time(float)`: The "off" time of each pulse, in seconds.
 
-**返り値の型**: `None`
+返り値の型: `None`
