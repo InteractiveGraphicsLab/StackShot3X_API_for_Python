@@ -2,18 +2,15 @@
 
 
 ## Overview
----
 StackShot3Xを操作するためのPython用API
 
 
 ## Environment
----
 + Python 3.8
 + PyFtdi 0.54.0
 
 
 ## Setup
----
 + StackShot3Xを操作するためには，USBドライバとしてlibusb-win32またはlibusbKをインストールする必要があります．これらは，[Zadig](https://zadig.akeo.ie/)を使うことで簡単にインストールできます．
 	1. zadigを起動し，*Options > List All Devices*を選択する．
 	![](/images/step1.png)
@@ -64,7 +61,6 @@ StackShot3Xに対する挙動を表すIntEnum
 
 
 ## APIs
----
 > class StackShotController
 
 > open(device=None)
