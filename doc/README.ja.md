@@ -26,7 +26,7 @@ StackShot3Xを操作するためのPython用API
 
 
 # Definisions
-以下は，[こちら](https://www.cognisys-inc.com/downloads/stackshot/StackShotCommands_1_2.pdf)を参考に作成したものである．
+以下は，[こちら](https://www.cognisys-inc.com/downloads/stackshot/StackShotCommands_1_2.pdf)を参考に実装したものである．
 
 ## class RailStatus
 
@@ -63,14 +63,14 @@ StackShot3Xに対する挙動を表すIntEnum
 
 ### open(device=None)
 
-USBで接続されているStackShot3Xと通信を始める．
+> USBで接続されているStackShot3Xと通信を始める．
 `device`に指定した端末と通信を始める．
 端末を指定しない(`device=None`)場合，接続されているStackShot3Xのいずれかと通信を始める．
-
-引数:
-- `device(Device)`: FTDI USBデバイス(PyUSBのインスタンス)
-
-返り値の型: `None`
+>
+> 引数:
+> - `device(Device)`: FTDI USBデバイス(PyUSBのインスタンス)
+> 
+> 返り値の型: `None`
 
 
 ### close()
