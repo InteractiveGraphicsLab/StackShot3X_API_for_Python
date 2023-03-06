@@ -8,7 +8,7 @@ StackShot3Xを操作するためのPython用API
 
 
 # Setup
-+ StackShot3Xを操作するためには，USBドライバとしてlibusb-win32またはlibusbKをインストールする必要があります．これらは，[Zadig](https://zadig.akeo.ie/)を使うことで簡単にインストールできます．
++ StackShot3Xを操作するためには，USBドライバとしてlibusb-win32またはlibusbKをインストールする必要がある．以下に，[Zadig](https://zadig.akeo.ie/)を用いたドライバのインストール手順を示す．
 	1. zadigを起動し，*Options > List All Devices*を選択する．
 	![](/images/step1.png)
 
@@ -28,31 +28,31 @@ StackShot3Xを操作するためのPython用API
 # Definisions
 以下は，[こちら](https://www.cognisys-inc.com/downloads/stackshot/StackShotCommands_1_2.pdf)を参考に作成したものである．
 
-> class RailStatus
+## class RailStatus
 
 軸の状態を表すIntEnum
 
-> class StackShotStatus
+## class StackShotStatus
 
 StackShotの状態を表すIntEnum
 
-> class RailAxis
+## class RailAxis
 
 StackShot3Xの軸を表すIntEnum
 
-> class Cmd
+## class Cmd
 
 StackShot3Xにおける各コマンドを表すIntEnum
 
-> class Action
+## class Action
 
 StackShot3Xに対する挙動を表すIntEnum
 
-> class RailDir
+## class RailDir
 
 レールの方向を表すIntEnum
 
-> class RailUnits
+## class RailUnits
 
 レールを動かすときの距離の単位を表すIntEnum
 
