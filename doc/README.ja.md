@@ -1,16 +1,16 @@
 # StackShot3X API for Python
 
 
-## Overview
+# Overview
 StackShot3Xを操作するためのPython用API
 
 
-## Environment
+# Environment
 + Python 3.8
 + PyFtdi 0.54.0
 
 
-## Setup
+# Setup
 + StackShot3Xを操作するためには，USBドライバとしてlibusb-win32またはlibusbKをインストールする必要があります．これらは，[Zadig](https://zadig.akeo.ie/)を使うことで簡単にインストールできます．
 	1. zadigを起動し，*Options > List All Devices*を選択する．
 	![](/images/step1.png)
@@ -28,7 +28,7 @@ StackShot3Xを操作するためのPython用API
 	```
 
 
-## Definisions
+# Definisions
 以下は，[こちら](https://www.cognisys-inc.com/downloads/stackshot/StackShotCommands_1_2.pdf)を参考に作成したものである．
 
 > class RailStatus
@@ -60,11 +60,11 @@ StackShot3Xに対する挙動を表すIntEnum
 レールを動かすときの距離の単位を表すIntEnum
 
 
-## APIs
+# APIs
 
-### class StackShotController
+## class StackShotController
 
-#### open(device=None)
+### open(device=None)
 
 USBで接続されているStackShot3Xと通信を始める．
 `device`に指定した端末と通信を始める．
@@ -76,14 +76,14 @@ USBで接続されているStackShot3Xと通信を始める．
 返り値の型: `None`
 
 
-#### close()
+### close()
 
 接続しているStackShot3Xとの通信を閉じる．  
 
 返り値の型: `None`
 
 
-#### rail_status(axis)
+### rail_status(axis)
 
 `axis`に指定した軸の状態を確認する．
 
@@ -94,7 +94,7 @@ USBで接続されているStackShot3Xと通信を始める．
 
 返り値: 軸の状態
 
-#### move(axis, dir, dist, units)
+### move(axis, dir, dist, units)
 
 `axis`に指定した軸を移動させる.  
 
@@ -107,7 +107,7 @@ USBで接続されているStackShot3Xと通信を始める．
 返り値の型: `None`
 
 
-#### stop(axis)
+### stop(axis)
 
 `axis`に指定した軸の移動を停止させる．  
 
@@ -116,7 +116,7 @@ USBで接続されているStackShot3Xと通信を始める．
 
 返り値の型: `None`
 
-#### shutter(num_pulses, pulse_duration, pulse_off_time)
+### shutter(num_pulses, pulse_duration, pulse_off_time)
 
 カメラのシャッターを発火させる．  
 
