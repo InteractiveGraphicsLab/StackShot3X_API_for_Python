@@ -74,16 +74,16 @@ class StackShotController:
 
         return res_data
 
-    def open(self):
+    def open(self, device=None):
         device_list = self.device.list_devices()
-        device = None
-        for d in device_list:
-            if d[0].description == 'StackShot3x':
-                device = usb.core.find(idVendor=d[0].vid, idProduct=d[0].pid)
-                break
-
         if device == None:
-            raise RuntimeError("Device Not Found") # NOTE
+            for d in device_list:
+                if d[0].description == 'StackShot3x':
+                    device = usb.core.find(idVendor=d[0].vid, idProduct=d[0].pid)
+                    break
+
+            if device == None:
+                raise RuntimeError("StackShot3X Not Found")
 
         self.device.open_from_device(device)
 
