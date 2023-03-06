@@ -1,7 +1,4 @@
 # StackShot3X API for Python
-
-
-# Overview
 StackShot3Xを操作するためのPython用API
 
 
