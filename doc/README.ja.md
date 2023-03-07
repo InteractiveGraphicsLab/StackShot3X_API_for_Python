@@ -35,7 +35,7 @@ StackShot3Xを操作するためのPython用API
 
 > USBで接続されているStackShot3Xと通信を始める．
 > `device`に指定した端末と通信を始める．
-> 端末を指定しない(`device=None`)場合，接続されているStackShot3Xのいずれかと通信を始める．
+> 端末を指定しない(`device=None`)場合，USBで接続されているStackShot3Xのいずれかと通信を始める．
 >
 > 引数:
 > - `device(Device)`: FTDI USBデバイス(PyUSBのインスタンス)
@@ -45,41 +45,41 @@ StackShot3Xを操作するためのPython用API
 
 ### close()
 
-> 接続しているStackShot3Xとの通信を閉じる．  
+> StackShot3Xとの通信を閉じる．  
 >
 > 返り値の型: `None`
 
 
-### rail_status(axis)
+### get_status(axis)
 
-> `axis`に指定した軸の状態を確認する．
+> `axis`に指定したStackShotの状態を取得する．
 >
 > 引数:
-> - `axis(RailAxis)`: 状態を取得したい軸
+> - `axis(RailAxis)`: レールの軸
 >
 > 返り値の型: `RailStatus`
 >
-> 返り値: 軸の状態
+> 返り値: レールの状態
 
 ### move(axis, dir, dist, units)
 
-> `axis`に指定した軸を移動させる.  
+> `axis`に指定したStackShotを動かす.
 >
 > 引数:
-> - `axis`: 動かす軸(`RailAxis`)
-> - `dir`: 動かす方向(`RailDir`)
-> - `dist`: 動かす距離(`float`)
-> - `units`: distで指定した距離の単位(`RailUnits`)
+> - `axis(RailAxis)`: 動かすStackShot
+> - `dir(RailDir)`: 動かす方向
+> - `dist(float)`: 動かす距離
+> - `units(RailUnits)`: distで指定した距離の単位
 >
 > 返り値の型: `None`
 
 
 ### stop(axis)
 
-> `axis`に指定した軸の移動を停止させる．  
+> `axis`に指定したStackShotの移動を停止する．
 >
 > 引数:
-> - `axis(RailAxis)`: 停止させる軸
+> - `axis(RailAxis)`: 停止するStackShot
 >
 > 返り値の型: `None`
 
