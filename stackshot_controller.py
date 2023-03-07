@@ -99,7 +99,7 @@ class StackShotController:
         self.send_command(RailAxis.ANY, Cmd.CLOSE, Action.WRITE, None, 0)
         self.device.close()
 
-    def rail_status(self, axis: RailAxis):
+    def get_status(self, axis: RailAxis):
         res = self.send_command(axis, Cmd.RAIL_STATUS, Action.READ, None, 0) # axis不要?
         status = (int(res[0])) | (int(res[1]) << 8) | (int(res[2]) << 16) | (int(res[3]) << 24)
 
@@ -121,7 +121,7 @@ class StackShotController:
 
         # wait for rail stop
         while(True):
-            if self.rail_status(axis) != RailStatus.MOVING:
+            if self.get_status(axis) != RailStatus.MOVING:
                 break
             time.sleep(0.5)
 
@@ -148,6 +148,6 @@ class StackShotController:
 
         # wait for finish shutter
         while(True):
-            if self.rail_status(RailAxis.ANY) != RailStatus.SHUTTER:
+            if self.get_status(RailAxis.ANY) != RailStatus.SHUTTER:
                 break
             time.sleep(0.5)
