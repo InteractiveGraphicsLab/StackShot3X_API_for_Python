@@ -25,39 +25,9 @@ StackShot3Xを操作するためのPython用API
 	```
 
 
-# Definisions
+# APIs
 以下は，[こちら](https://www.cognisys-inc.com/downloads/stackshot/StackShotCommands_1_2.pdf)を参考に実装したものである．
 
-## class RailStatus
-
-特定の軸におけるレールの状態を表す列挙型
-
-## class StackShotStatus
-
-StackShot3Xの状態を表す列挙型
-
-## class RailAxis
-
-StackShot3Xのレールの軸を表す列挙型
-
-## class Cmd
-
-StackShot3Xにおける各コマンドを表す列挙型
-
-## class Action
-
-StackShot3Xに対する挙動を表す列挙型
-
-## class RailDir
-
-レール上の進行方向を表す列挙型
-
-## class RailUnits
-
-レールを動かす距離の単位を表す列挙型
-
-
-# APIs
 
 ## class StackShotController
 
@@ -123,3 +93,38 @@ StackShot3Xに対する挙動を表す列挙型
 > - `pulse_off_time(float)`: The "off" time of each pulse, in seconds.
 >
 > 返り値の型: `None`
+
+
+## class RailStatus
+
+特定の軸におけるレールの状態を表す列挙型
+
+
+## class StackShotStatus
+
+StackShot3Xの状態を表す列挙型
+
+
+## class RailAxis
+
+StackShot3Xのレールの軸を表す列挙型
+
+
+## class Cmd
+
+StackShot3Xにおける各コマンドを表す列挙型
+
+
+## class Action
+
+StackShot3Xに対する挙動を表す列挙型
+
+
+## class RailDir
+
+レール上の進行方向を表す列挙型
+
+
+## class RailUnits
+
+レールを動かす距離の単位を表す列挙型
