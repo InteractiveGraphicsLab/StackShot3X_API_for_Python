@@ -1,11 +1,11 @@
+# referenced from https://www.cognisys-inc.com/downloads/stackshot/StackShotCommands_1_2.pdf
+
 import time
 import ctypes
 import usb.core
 
 from commdefs import *
 from pyftdi.ftdi import Ftdi
-from pathlib import Path
-from autoshooter_error import AutoShooterError
 
 def float2uint(data: float):
     # casted_data = (unsigned int*)&data
@@ -14,16 +14,15 @@ def float2uint(data: float):
     casted_data = casted_data_ptr.contents.value
     return casted_data
 
-
-class StackShotAPI:
+class StackShotController:
     def __init__(self):
         self.device = Ftdi()
-        self.units = RailUnits.COMM_RAIL_UNITS_METRIC
+        self.units = RailUnits.METRIC
         self.backlash = False
 
-    def send_command(self, axis: RailAxis, cmd: Cmd, action: Action, data: bytearray | None, lenIn: int):
+    def send_command(self, axis: RailAxis, cmd: Cmd, action: Action, data: bytearray, lenIn: int):
         cmd = int(cmd)
-        if axis == RailAxis.COMM_RAIL_AXIS_ANY:
+        if axis == RailAxis.ANY:
             action = (int(action) | (int(axis)   << 4))
         else:
             action = (int(action) | (int(axis-1) << 4))
@@ -58,12 +57,12 @@ class StackShotAPI:
         """
         # res_cmd = res[1] << 8 | res[2]
 
-        res_response = res[3]
-        if res_response != int(Action.COMM_ACTION_RSP_OK):
-            if res_response == int(Action.COMM_ACTION_BUSY):
-                raise AutoShooterError('device is busy.')
-            else:
-                raise AutoShooterError('something error was happned.')
+        # res[3]: axis & response
+        # axis - X: 0000 0000, Y: 0001 0000, Z: 0010 0000
+        # exp: RSP_OK(0010) on axis -> 0001 0010
+        res_response = res[3] & 0x0F
+        if res_response != int(Action.RSP_OK):
+            print('bad response')
 
         res_buffsize = res[4]
 
@@ -75,16 +74,16 @@ class StackShotAPI:
 
         return res_data
 
-    def open(self):
+    def open(self, device=None):
         device_list = self.device.list_devices()
-        device = None
-        for d in device_list:
-            if d[0].description == 'StackShot3x':
-                device = usb.core.find(idVendor=d[0].vid, idProduct=d[0].pid)
-                break
-
         if device == None:
-            raise AutoShooterError("Device Not Found") # NOTE
+            for d in device_list:
+                if d[0].description == 'StackShot3x':
+                    device = usb.core.find(idVendor=d[0].vid, idProduct=d[0].pid)
+                    break
+
+            if device == None:
+                raise RuntimeError("StackShot3X Not Found")
 
         self.device.open_from_device(device)
 
@@ -97,11 +96,11 @@ class StackShotAPI:
 
     def close(self):
         self.device.set_bitmode(0xF0, Ftdi.BitMode.CBUS)
-        self.send_command(RailAxis.COMM_RAIL_AXIS_ANY, Cmd.CC_CLOSE, Action.COMM_ACTION_WRITE, None, 0)
+        self.send_command(RailAxis.ANY, Cmd.CLOSE, Action.WRITE, None, 0)
         self.device.close()
 
-    def rail_status(self, axis: RailAxis):
-        res = self.send_command(axis, Cmd.CC_RAIL_STATUS, Action.COMM_ACTION_READ, None, 0) # axis不要?
+    def get_status(self, axis: RailAxis):
+        res = self.send_command(axis, Cmd.RAIL_STATUS, Action.READ, None, 0) # axis不要?
         status = (int(res[0])) | (int(res[1]) << 8) | (int(res[2]) << 16) | (int(res[3]) << 24)
 
         return status
@@ -118,16 +117,16 @@ class StackShotAPI:
         data.extend(((castedDist >> 16) & 0x0FF).to_bytes(1, 'big'))
         data.extend(((castedDist >> 24) & 0x0FF).to_bytes(1, 'big'))
 
-        self.send_command(axis, Cmd.CC_RAIL_MOVE, Action.COMM_ACTION_WRITE, data, 7)
+        self.send_command(axis, Cmd.RAIL_MOVE, Action.WRITE, data, 7)
 
         # wait for rail stop
         while(True):
-            if self.rail_status(axis) != RAIL_STATUS_MOVING:
+            if self.get_status(axis) != RailStatus.MOVING:
                 break
             time.sleep(0.5)
 
     def stop(self, axis: RailAxis):
-        self.send_command(axis, Cmd.CC_RAIL_STOP, Action.COMM_ACTION_WRITE, None, 0)
+        self.send_command(axis, Cmd.RAIL_STOP, Action.WRITE, None, 0)
 
     def shutter(self,  num_pulses: int, pulse_duration: float, pulse_off_time: float):
         casted_pulse_duration = float2uint(pulse_duration)
@@ -145,10 +144,10 @@ class StackShotAPI:
         data.extend(((casted_pulse_off_time >> 16) & 0x0FF).to_bytes(1, 'big'))
         data.extend(((casted_pulse_off_time >> 24) & 0x0FF).to_bytes(1, 'big'))
 
-        self.send_command(RailAxis.COMM_RAIL_AXIS_ANY, Cmd.CC_RAIL_SHUTTER_FIRE, Action.COMM_ACTION_WRITE, data, 10)
+        self.send_command(RailAxis.ANY, Cmd.RAIL_SHUTTER_FIRE, Action.WRITE, data, 10)
 
         # wait for finish shutter
         while(True):
-            if self.rail_status(RailAxis.COMM_RAIL_AXIS_ANY) != RAIL_STATUS_SHUTTER:
+            if self.get_status(RailAxis.ANY) != RailStatus.SHUTTER:
                 break
             time.sleep(0.5)
