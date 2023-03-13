@@ -1,6 +1,5 @@
 # referenced from https://www.cognisys-inc.com/downloads/stackshot/StackShotCommands_1_2.pdf
 
-import time
 import ctypes
 import usb.core
 
@@ -39,11 +38,12 @@ class StackShotController:
         byte.extend(b'\x69') # checksum
 
         n = self.device.write_data(byte)
-        time.sleep(1)
 
-        res = self.device.read_data(100)
-        ### wait for response
-        time.sleep(1)
+        # wait for response
+        while True:
+            res = self.device.read_data(100)
+            if 0 < len(res):
+                break
 
         """
         Format of received data:
@@ -89,8 +89,6 @@ class StackShotController:
 
         self.device.set_bitmode(0xFF, Ftdi.BitMode.CBUS)
 
-        time.sleep(0.5)
-
         self.device.set_baudrate(STACKSHOT_BAUD_RATE)
         self.device.set_flowctrl('') # no flow controll
 
@@ -119,12 +117,6 @@ class StackShotController:
 
         self.send_command(axis, Cmd.RAIL_MOVE, Action.WRITE, data, 7)
 
-        # wait for rail stop
-        while(True):
-            if self.get_status(axis) != RailStatus.MOVING:
-                break
-            time.sleep(0.5)
-
     def stop(self, axis: RailAxis):
         self.send_command(axis, Cmd.RAIL_STOP, Action.WRITE, None, 0)
 
@@ -145,9 +137,3 @@ class StackShotController:
         data.extend(((casted_pulse_off_time >> 24) & 0x0FF).to_bytes(1, 'big'))
 
         self.send_command(RailAxis.ANY, Cmd.RAIL_SHUTTER_FIRE, Action.WRITE, data, 10)
-
-        # wait for finish shutter
-        while(True):
-            if self.get_status(RailAxis.ANY) != RailStatus.SHUTTER:
-                break
-            time.sleep(0.5)
