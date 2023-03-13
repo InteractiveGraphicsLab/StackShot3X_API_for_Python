@@ -19,8 +19,8 @@ class GUI(QtWidgets.QMainWindow):
         self.gui.setupUi(self)
 
         short = 0.1
-        middle = 0.5
-        long = 1.0
+        middle = 1.0
+        long = 5.0
         # move forward
         self.gui.fwdShortPushButton.pressed.connect(lambda: self.moveStackShot(RailDir.FWD, short))
         self.gui.fwdMiddlePushButton.pressed.connect(lambda: self.moveStackShot(RailDir.FWD, middle))
