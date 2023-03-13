@@ -3,7 +3,7 @@
 import ctypes
 import usb.core
 
-from commdefs import *
+from .commdefs import *
 from pyftdi.ftdi import Ftdi
 
 def float2uint(data: float):
