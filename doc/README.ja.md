@@ -10,18 +10,23 @@ StackShot3Xを操作するためのPython用API
 # Setup
 + StackShot3Xを操作するためには，USBドライバとしてlibusb-win32またはlibusbKをインストールする必要がある．以下に，[Zadig](https://zadig.akeo.ie/)を用いたドライバのインストール手順を示す．
 	1. Zadigを起動し，*Options > List All Devices*を選択する．
-	![](/images/step1.png)
+	![](/doc/images/step1.png)
 
 	1. デバイスのリストからStackShot3Xを選択する．
-	![](/images/step2.png)
+	![](/doc/images/step2.png)
 
 	1. ドライバの種類をlibusb-win32またはlibusbKに設定し，*Replace Driver*を選択する．
-	![](/images/step3.png)
-
+	![](/doc/images/step3.png)
 
 + 本モジュールに必要なパッケージをインストールする
 	```
 	pip install pyftdi
+	```
+
++ PySide6をインストールすることで，テスト用のGUIを用いてStackShot3Xを操作できる．
+	```
+	pip install PySide6
+	python test.py
 	```
 
 
