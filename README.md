@@ -1,4 +1,6 @@
 # StackShot3X API for Python
+[**日本語**](./README.ja.md)
+
 API to controll StackShot3X on Python
 
 
@@ -103,34 +105,38 @@ The following is an implementation based on [this](https://www.cognisys-inc.com/
 
 ## class RailStatus
 
-特定の軸におけるレールの状態を表す列挙型
+Enum class representing the status of the rail on a particular axis
 
 
 ## class StackShotStatus
 
-StackShot3Xの状態を表す列挙型
+Enum class representing the status of StackShot3X
 
 
 ## class RailAxis
 
-StackShot3Xのレールの軸を表す列挙型
+Enum class representing the axis of a StackShot3X rail
 
 
 ## class Cmd
 
-StackShot3Xにおける各コマンドを表す列挙型
+Enum class representing each command in StackShot3X
 
 
 ## class Action
 
-StackShot3Xに対する挙動を表す列挙型
+Enum class representing actions for StackShot3X
 
 
 ## class RailDir
 
-レール上の進行方向を表す列挙型
+Enum class representing directions of travel on the rail
 
 
 ## class RailUnits
 
-レールを動かす距離の単位を表す列挙型
+Enum class representing units of distance to move the rail
+
+
+# Acknowledgements
+This software was supported by JSPS Grant-in-Aid for Scientific Research (B)22H03710.

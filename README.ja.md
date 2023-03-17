@@ -1,4 +1,6 @@
 # StackShot3X API for Python
+[**English**](./README.md)
+
 StackShot3Xを操作するためのPython用API
 
 
@@ -133,3 +135,7 @@ StackShot3Xに対する挙動を表す列挙型
 ## class RailUnits
 
 レールを動かす距離の単位を表す列挙型
+
+
+# 謝辞
+本ソフトウエアは 日本学術振興会 科学研究費 基盤研究B 22H03710の助成を受けて開発されました。
