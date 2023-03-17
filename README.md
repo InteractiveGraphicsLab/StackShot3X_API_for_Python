@@ -136,3 +136,7 @@ Enum class representing directions of travel on the rail
 ## class RailUnits
 
 Enum class representing units of distance to move the rail
+
+
+# Acknowledgements
+This software was supported by JSPS Grant-in-Aid for Scientific Research (B)22H03710.
