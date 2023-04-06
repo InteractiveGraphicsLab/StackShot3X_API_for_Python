@@ -11,13 +11,13 @@ API to controll StackShot3X on Python
 
 # Setup
 + You need to install libusb-win32 or libusbK to controll StackShot3X. The following is the procedure for installing the driver using [Zadig](https://zadig.akeo.ie/).
-	1. Start Zadig, and select *Options > List All Devices*
+	1. Start Zadig, and select *Options > List All Devices*<br>
 	![](/images/step1.png)
 
-	1. Select StackShot3x from devices list.
+	1. Select StackShot3x from devices list.<br>
 	![](/images/step2.png)
 
-	1. Select driver libusb-win32 or libusbK, and click *Replace Driver*.
+	1. Select driver libusb-win32 or libusbK, and click *Replace Driver*.<br>
 	![](/images/step3.png)
 
 
