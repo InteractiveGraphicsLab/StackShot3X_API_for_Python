@@ -3,7 +3,7 @@
 import ctypes
 import usb.core
 
-from .commdefs import *
+from commdefs import *
 from pyftdi.ftdi import Ftdi
 
 def float2uint(data: float):
@@ -116,6 +116,25 @@ class StackShotController:
         data.extend(((castedDist >> 24) & 0x0FF).to_bytes(1, 'big'))
 
         self.send_command(axis, Cmd.RAIL_MOVE, Action.WRITE, data, 7)
+
+    def move_at_speed(self, axis: RailAxis, dir: RailDir, dist: float, speedPercent: float):
+        castedDist = float2uint(dist)
+        castedSpeedPercent = float2uint(speedPercent)
+
+        data = bytearray()
+        data.extend(int(dir).to_bytes(1, 'big'))
+        data.extend(int(self.units).to_bytes(1, 'big'))
+        data.extend(( castedDist        & 0x0FF).to_bytes(1, 'big'))
+        data.extend(((castedDist >>  8) & 0x0FF).to_bytes(1, 'big'))
+        data.extend(((castedDist >> 16) & 0x0FF).to_bytes(1, 'big'))
+        data.extend(((castedDist >> 24) & 0x0FF).to_bytes(1, 'big'))
+
+        data.extend(( castedSpeedPercent        & 0x0FF).to_bytes(1, 'big'))
+        data.extend(((castedSpeedPercent >>  8) & 0x0FF).to_bytes(1, 'big'))
+        data.extend(((castedSpeedPercent >> 16) & 0x0FF).to_bytes(1, 'big'))
+        data.extend(((castedSpeedPercent >> 24) & 0x0FF).to_bytes(1, 'big'))
+
+        self.send_command(axis, Cmd.RAIL_MOVE_AT_SPEED, Action.WRITE, data, 10)
 
     def stop(self, axis: RailAxis):
         self.send_command(axis, Cmd.RAIL_STOP, Action.WRITE, None, 0)
